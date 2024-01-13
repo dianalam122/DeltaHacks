@@ -8,6 +8,9 @@ export const HomeScreen = ({navigation}) => {
         title="Login"
         onPress={() => navigation.navigate('Login')}
     />
+    <Button title="Sign Up"
+        onPress={() => navigate.navigate("SignUp")}
+        />
     </>
   );
 };
