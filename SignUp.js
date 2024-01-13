@@ -5,7 +5,7 @@ export const SignUp = ({navigation}) => {
   <>
     <Button
         title="SignUp"
-        onPress={() => navigation.navigate('Login', {name: 'Jane'})}
+        onPress={() => navigation.navigate('Login')}
     />
     </>
   );

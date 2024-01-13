@@ -3,13 +3,13 @@ import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 export const HomeScreen = ({navigation}) => {
   return (
   <>
-    <Text>Hi</Text>
+    <Text>Title</Text>
     <Button
         title="Login"
         onPress={() => navigation.navigate('Login')}
     />
     <Button title="Sign Up"
-        onPress={() => navigate.navigate("SignUp")}
+        onPress={() => navigation.navigate("SignUp")}
         />
     </>
   );
