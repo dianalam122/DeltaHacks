@@ -1,4 +1,5 @@
 import React from 'react';
+import Realm from "realm";
 import {StyleSheet, Text, View, Button, Alert, TextInput} from 'react-native';
 export const SignUp = ({navigation}) => {
   const [name, onChangeName] = React.useState("");
