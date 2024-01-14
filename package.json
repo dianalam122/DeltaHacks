@@ -2,6 +2,7 @@
   "name": "deltahacks",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "proxy": "http://localhost:4000",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,7 +10,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-picker/picker": "^2.6.1",
+    "@expo/ngrok": "^4.1.0",
+    "@react-native-picker/picker": "2.4.10",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@types/react": "~18.2.14",
@@ -26,7 +28,8 @@
     "typescript": "^5.1.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@expo/ngrok": "^4.1.0"
   },
   "private": true
 }

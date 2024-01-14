@@ -7,7 +7,7 @@ export const SignUp = ({navigation}) => {
   const [confirmPassword, onChangeConfirmPassword] = React.useState("");
 
 
-    const handleSubmission = () => {
+    const handleSubmission = async () => {
       if (name === "") {
           Alert.alert("Please enter a name");
       } else if (email === "") {
@@ -17,7 +17,7 @@ export const SignUp = ({navigation}) => {
       } else if (confirmPassword === "") {
             Alert.alert("Please confirm your password");
       } else if (password === confirmPassword) {
-          fetch('https://localhost/signup:4000', {
+          await fetch('https://127.0.0.1:4000/signup', {
               method: 'POST',
               headers: {
                   Accept: 'application/json',
@@ -30,7 +30,7 @@ export const SignUp = ({navigation}) => {
               }),
           })
               .then(r => r.json())
-              .then(r => console.log(r));
+              .catch(error => console.log(error));
             navigation.navigate('Login');
         } else {
         Alert.alert("Passwords do not match");
