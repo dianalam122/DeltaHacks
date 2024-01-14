@@ -4,9 +4,11 @@ import {HomeScreen} from './Home';
 import {Login} from './Login';
 import {SignUp} from './SignUp';
 import {Dashboard} from './Dashboard';
+import {ResetPassword} from "./PassReset";
+
 import { initializeApp } from 'firebase/app';
 import { getAuth } from "firebase/auth";
-import {ResetPassword} from "./PassReset";
+import { getFirestore } from "firebase/firestore";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -20,6 +22,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 
 export default function App() {
     const Stack = createNativeStackNavigator();

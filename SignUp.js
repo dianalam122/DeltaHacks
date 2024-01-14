@@ -2,8 +2,11 @@ import React from 'react';
 import {View, Pressable, Alert, TextInput, StyleSheet, Text} from 'react-native';
 import {auth} from "./App";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
+import { db } from "./App";
 
 export const SignUp = ({navigation}) => {
+    const [name, onChangeName] = React.useState("");
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
   const [confirmPassword, onChangeConfirmPassword] = React.useState("");
@@ -17,10 +20,19 @@ export const SignUp = ({navigation}) => {
             Alert.alert("Please confirm your password");
       } else if (password === confirmPassword) {
           createUserWithEmailAndPassword(auth, email, password)
-              .then((userCredential) => {
+              .then(async (userCredential) => {
                   // Signed up
                   const user = userCredential.user;
                   Alert.alert('Signed up successfully. Please Login.');
+                  try {
+                      const docRef = await setDoc(doc(db, "User", user.uid), {
+                          name: name,
+                          email: email,
+                      });
+                  } catch (e) {
+                      Alert.alert("Error adding document: ", e);
+                  }
+
                   navigation.navigate('Login');
               })
               .catch((error) => {
@@ -39,6 +51,9 @@ export const SignUp = ({navigation}) => {
 
   return (
       <View style={styles.container}>
+          <TextInput inputMode={"text"} placeholder="Name" onChangeText={onChangeName}
+                     textContentType={"name"}
+          />
         <TextInput
             onChangeText={onChangeEmail}
             placeholder="Email"
@@ -48,13 +63,11 @@ export const SignUp = ({navigation}) => {
         <TextInput
             onChangeText={onChangePassword}
             placeholder="Password"
-            inputMode={"password"}
             textContentType={"newPassword"}
         />
         <TextInput
             onChangeText={onChangeConfirmPassword}
             placeholder="Confirm Password"
-            inputMode={"password"}
             textContentType={"newPassword"}
         />
         <Pressable
