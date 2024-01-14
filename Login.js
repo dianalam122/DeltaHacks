@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Pressable, Alert, TextInput} from 'react-native';
-import {auth} from "./App";
+import {auth} from "./firebaseConfig";
 import {signInWithEmailAndPassword} from "firebase/auth";
 export const Login = ({navigation}) => {
   const [email, onChangeEmail] = React.useState("");

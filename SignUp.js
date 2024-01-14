@@ -1,9 +1,8 @@
 import React from 'react';
 import {View, Pressable, Alert, TextInput, StyleSheet, Text} from 'react-native';
-import {auth} from "./App";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
-import { db } from "./App";
+import { db, auth } from "./firebaseConfig";
 
 export const SignUp = ({navigation, route}) => {
     const [name, onChangeName] = React.useState("");

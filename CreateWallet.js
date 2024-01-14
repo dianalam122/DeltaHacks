@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Pressable, Alert, TextInput} from 'react-native';
-import {auth, db} from "./App";
+import {auth, db} from "./firebaseConfig";
 import {doc, getDoc, updateDoc} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
 export const CreateWallet = ({navigation, route}) => {

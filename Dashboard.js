@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {doc, getDoc} from "firebase/firestore";
-import {auth, db} from "./App";
+import {auth, db} from "./firebaseConfig";
 import {useIsFocused} from "@react-navigation/native";
 
 export const Dashboard = ({navigation}) => {
