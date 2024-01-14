@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Pressable, Alert, TextInput} from 'react-native';
 import {db} from "./firebaseConfig";
 import {doc, getDoc, updateDoc} from "firebase/firestore";
+
 export const CreateWallet = ({navigation, route}) => {
     const [walletId, onChangeWalletId] = React.useState("");
 

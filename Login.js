@@ -3,13 +3,14 @@ import VelvetSun from './assets/VelvetSun.jpg';
 import {StyleSheet, Text, View, Pressable, Alert, TextInput, ImageBackground} from 'react-native';
 import {auth} from "./firebaseConfig";
 import {signInWithEmailAndPassword} from "firebase/auth";
+
 export const Login = ({navigation}) => {
 
-  
-  const [email, onChangeEmail] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
 
-  const handleSubmission = async () => {
+    const [email, onChangeEmail] = React.useState("");
+    const [password, onChangePassword] = React.useState("");
+
+    const handleSubmission = async () => {
         if (email === "") {
             Alert.alert("Please enter an email");
         } else if (password === "") {
@@ -27,48 +28,47 @@ export const Login = ({navigation}) => {
                     Alert.alert(errorMessage);
                 });
         }
-  };
-  return (
-    <ImageBackground
-        source={VelvetSun}
-        style={styles.background}>
+    };
+    return (
+        <ImageBackground
+            source={VelvetSun}
+            style={styles.background}>
 
             <Text style={styles.title}>Login</Text>
             <Text style={styles.subtitle}>Sign into your BizFund account</Text>
 
             <View style={styles.inputContainer}>
-
                 <TextInput style={styles.inputBox}
-                    className={"mx-2"}
-                    onChangeText={onChangeEmail}
-                    placeholder="Email"
-                    placeholderTextColor="#FFFFFF" 
-                    textContentType={"emailAddress"}
+                           className={"mx-2"}
+                           onChangeText={onChangeEmail}
+                           placeholder="Email"
+                           placeholderTextColor="#FFFFFF"
+                           textContentType={"emailAddress"}
                 />
                 <TextInput style={styles.inputBox}
-                    onChangeText={onChangePassword}
-                    placeholder="Password"
-                    placeholderTextColor="#FFFFFF" 
-                    textContentType={"password"}
+                           onChangeText={onChangePassword}
+                           placeholder="Password"
+                           placeholderTextColor="#FFFFFF"
+                           textContentType={"password"}
                 />
             </View>
 
-            <View style={styles.buttonContainer}>
-                <Pressable color='#fff'
-            onPress={handleSubmission}
-        >
-            <Text>Login</Text>
-        </Pressable>
-          <Pressable onPress={() => navigation.navigate("Reset")} color='#fff'>
-              <Text>Forgot Password?</Text>
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate("SignUp", {isBusiness: false})} color='#fff'>
-              <Text>Sign Up</Text>
-          </Pressable>
-            </View>
-            
-    </ImageBackground>
-  );
+            <Pressable color='#fff'
+                       style={styles.buttonContainer}
+                       onPress={handleSubmission}
+            >
+                <Text>Login</Text>
+            </Pressable>
+            <Pressable style={styles.buttonContainer} onPress={() => navigation.navigate("Reset")} color='#fff'>
+                <Text>Forgot Password?</Text>
+            </Pressable>
+            <Pressable style={styles.buttonContainer} onPress={() => navigation.navigate("SignUp", {isBusiness: false})}
+                       color='#fff'>
+                <Text>Sign Up</Text>
+            </Pressable>
+
+        </ImageBackground>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    
+
     title: {
         textAlign: 'left',
         marginStart: 30,
@@ -92,14 +92,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#FFFFFF',
     },
-  
+
     subtitle: {
-      textAlign: 'left',
-      marginStart: 30,
-      marginTop: 5,
-      marginBottom: 50,
-      fontSize: 17,
-      color: '#FFFFFF',
+        textAlign: 'left',
+        marginStart: 30,
+        marginTop: 5,
+        marginBottom: 50,
+        fontSize: 17,
+        color: '#FFFFFF',
     },
 
     inputBox: {
@@ -108,20 +108,22 @@ const styles = StyleSheet.create({
         borderColor: '#FFFFFF',
         borderWidth: 1,
         borderRadius: 20,
-        marginBottom: 20, 
+        marginBottom: 20,
         paddingHorizontal: 20,
-        padding: 10, 
+        padding: 10,
     },
 
     buttonContainer: {
-      backgroundColor: 'rgba(255, 255, 255, 0.15)',
-      marginTop: 20,
-      width: '40%',
-      height: 40,
-      alignSelf: 'center',
-      borderRadius: 20,
-      borderWidth: 0.5,
-      borderColor: '#FFFFFF',
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        marginTop: 20,
+        width: '40%',
+        height: 40,
+        alignSelf: 'center',
+        borderRadius: 20,
+        borderWidth: 0.5,
+        borderColor: '#FFFFFF',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
 });

@@ -11,18 +11,18 @@ export default function App() {
     const Stack = createNativeStackNavigator();
 
     return (
-    <NavigationContainer>
-          <Stack.Navigator screenOptions={{
+        <NavigationContainer>
+            <Stack.Navigator screenOptions={{
                 headerShown: false,
                 gestureEnabled: false
-          }}>
-              <Stack.Screen name="Home" component={HomeScreen} />
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="SignUp" component={SignUp} />
-              <Stack.Screen name="Reset" component={ResetPassword}/>
-              <Stack.Screen name="Dashboard" component={Dashboard}/>
-              <Stack.Screen name="CreateWallet" component={CreateWallet}/>
-          </Stack.Navigator>
-    </NavigationContainer>
-  );
+            }}>
+                <Stack.Screen name="Home" component={HomeScreen}/>
+                <Stack.Screen name="Login" component={Login}/>
+                <Stack.Screen name="SignUp" component={SignUp}/>
+                <Stack.Screen name="Reset" component={ResetPassword}/>
+                <Stack.Screen name="Dashboard" component={Dashboard}/>
+                <Stack.Screen name="CreateWallet" component={CreateWallet}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
