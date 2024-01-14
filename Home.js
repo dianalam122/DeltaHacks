@@ -1,16 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Alert } from 'react-native';
 export const HomeScreen = ({navigation}) => {
   return (
       <View style={styles.container}>
         <Text style={styles.title}>App Name</Text>
-        <Button
-            title="Login"
-            onPress={() => navigation.navigate('Login')}
-        />
-        <Button title="Sign Up"
-                onPress={() => navigation.navigate("SignUp")}
-        />
+          <Pressable onPress={() => navigation.navigate('Login')}>
+              <Text>Login</Text>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate("SignUp")}>
+              <Text>Sign Up</Text>
+          </Pressable>
       </View>
   );
 };

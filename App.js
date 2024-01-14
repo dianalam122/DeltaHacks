@@ -7,9 +7,11 @@ import {Dashboard} from './Dashboard';
 
 export default function App() {
     const Stack = createNativeStackNavigator();
-  return (
+    return (
     <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={{
+                headerShown: false
+          }}>
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="SignUp" component={SignUp} />
