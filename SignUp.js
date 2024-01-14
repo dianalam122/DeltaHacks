@@ -1,5 +1,4 @@
 import React from 'react';
-import Realm from "realm";
 import {StyleSheet, Text, View, Button, Alert, TextInput} from 'react-native';
 export const SignUp = ({navigation}) => {
   const [name, onChangeName] = React.useState("");
@@ -7,7 +6,8 @@ export const SignUp = ({navigation}) => {
   const [password, onChangePassword] = React.useState("");
   const [confirmPassword, onChangeConfirmPassword] = React.useState("");
 
-  const handleSubmission = () => {
+
+    const handleSubmission = () => {
       if (name === "") {
           Alert.alert("Please enter a name");
       } else if (email === "") {
@@ -17,7 +17,21 @@ export const SignUp = ({navigation}) => {
       } else if (confirmPassword === "") {
             Alert.alert("Please confirm your password");
       } else if (password === confirmPassword) {
-        navigation.navigate('Login');
+          fetch('https://localhost/signup:4000', {
+              method: 'POST',
+              headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  name: name,
+                  email: email,
+                password: password,
+              }),
+          })
+              .then(r => r.json())
+              .then(r => console.log(r));
+            navigation.navigate('Login');
         } else {
         Alert.alert("Passwords do not match");
     }
