@@ -1,7 +1,0 @@
-Flask
-pymongo[srv]
-python-dotenv
-requests
-Flask-PyMongo
-python-dotenv
-flask_cors
