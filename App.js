@@ -1,11 +1,11 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {HomeScreen} from './Home';
-import {Login} from './Login';
-import {SignUp} from './SignUp';
-import {Dashboard} from './Dashboard';
-import {ResetPassword} from "./PassReset";
-import {CreateWallet} from "./CreateWallet";
+import {HomeScreen} from './src/Home';
+import {Login} from './src/Login';
+import {SignUp} from './src/SignUp';
+import {Dashboard} from './src/Dashboard';
+import {ResetPassword} from "./src/PassReset";
+import {CreateWallet} from "./src/CreateWallet";
 
 export default function App() {
     const Stack = createNativeStackNavigator();

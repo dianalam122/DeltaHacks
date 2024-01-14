@@ -17,7 +17,7 @@ export const Login = ({navigation}) => {
             Alert.alert("Please enter a password");
         } else {
             signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
+                .then(() => {
                     // Signed in
                     Alert.alert("Login successful");
                     navigation.navigate("Dashboard");

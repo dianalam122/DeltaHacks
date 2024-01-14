@@ -1,6 +1,6 @@
 import React from 'react';
 import VelvetSun from './assets/VelvetSun.jpg';
-import {StyleSheet, Text, View, Pressable, ImageBackground} from 'react-native';
+import {StyleSheet, Text, Pressable, ImageBackground} from 'react-native';
 
 export const HomeScreen = ({navigation}) => {
     return (
