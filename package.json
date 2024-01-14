@@ -2,7 +2,6 @@
   "name": "deltahacks",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
-  "proxy": "http://localhost:4000",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -17,6 +16,7 @@
     "@react-navigation/native-stack": "^6.9.17",
     "@types/react": "~18.2.14",
     "axios": "^1.6.5",
+    "api": "^6.1.1",
     "expo": "~49.0.15",
     "expo-asset": "~8.10.1",
     "expo-file-system": "~15.4.5",
