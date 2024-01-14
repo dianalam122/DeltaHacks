@@ -39,7 +39,6 @@ export const Login = ({navigation}) => {
             onChangeText={onChangePassword}
             placeholder="Password"
             textContentType={"password"}
-            inputMode={"password"}
         />
         <Pressable
             onPress={handleSubmission}

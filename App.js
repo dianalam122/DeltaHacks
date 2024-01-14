@@ -5,6 +5,7 @@ import {Login} from './Login';
 import {SignUp} from './SignUp';
 import {Dashboard} from './Dashboard';
 import {ResetPassword} from "./PassReset";
+import {CreateWallet} from "./CreateWallet";
 
 import { initializeApp } from 'firebase/app';
 import { getAuth } from "firebase/auth";
@@ -37,6 +38,7 @@ export default function App() {
               <Stack.Screen name="SignUp" component={SignUp} />
               <Stack.Screen name="Reset" component={ResetPassword}/>
               <Stack.Screen name="Dashboard" component={Dashboard}/>
+              <Stack.Screen name="CreateWallet" component={CreateWallet}/>
           </Stack.Navigator>
     </NavigationContainer>
   );

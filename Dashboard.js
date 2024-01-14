@@ -1,41 +1,56 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button, Alert, TextInput, Pressable} from 'react-native';
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "./App";
-import { auth } from "./App";
+import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
+import {onAuthStateChanged, signOut} from "firebase/auth";
+import {doc, getDoc} from "firebase/firestore";
+import {auth, db} from "./App";
 
 export const Dashboard = ({navigation, route}) => {
     const [uid, setUid] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [name, setName] = React.useState("");
+    const [hasWallet, setHasWallet] = React.useState(false);
+    const [walletId, setWalletId] = React.useState("");
+
+    const getData = async (uid) => {
+        const docRef = doc(db, "User", uid);
+        return await getDoc(docRef);
+    };
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/auth.user
             const uid = user.uid;
-            const docRef = doc(db, "User", uid);
-            const docSnap = await getDoc(docRef);
+            const docSnap = await getData(uid);
 
             if (docSnap.exists()) {
+                setHasWallet(docSnap.data().walletId !== null);
+                setWalletId(docSnap.data().walletId);
                 setEmail(docSnap.data().email);
                 setUid(uid);
                 setName(docSnap.data().name);
             } else {
                 // doc.data() will be undefined in this case
-                Alert.alert("No such document!");
+                // Alert.alert("No such document!");
             }
 
-            const email = user.email;
             setUid(uid);
-            setEmail(email);
         } else {
             navigation.navigate("Home");
         }
     });
     return (
         <View style={styles.container}>
+            <Text style={styles.title}>Dashboard</Text>
+            {hasWallet ?
+                <Text>{walletId}</Text>
+                :
+                <Pressable onPress={() => {
+                    navigation.navigate("CreateWallet", {uid: uid});
+                }}>
+                    <Text>Create Wallet</Text>
+                </Pressable>
+            }
             <Text>{uid}</Text>
             <Text>{email}</Text>
             <Text>{name}</Text>

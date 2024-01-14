@@ -28,6 +28,7 @@ export const SignUp = ({navigation}) => {
                       const docRef = await setDoc(doc(db, "User", user.uid), {
                           name: name,
                           email: email,
+                          isBusiness: navigation.routes.isBusiness
                       });
                   } catch (e) {
                       Alert.alert("Error adding document: ", e);
