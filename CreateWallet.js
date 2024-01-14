@@ -9,7 +9,7 @@ export const CreateWallet = ({navigation}) => {
             <TextInput
                 className={"mx-2"}
                 onChangeText={onChangeWalletId}
-                placeholder="walletId"
+                placeholder="Enter Wallet ID"
             />
             <Pressable
                 onPress={async () => {
@@ -25,11 +25,11 @@ export const CreateWallet = ({navigation}) => {
                     await updateDoc(docRef, {
                         "walletId": walletId
                     });
-                    navigation.navigate("Home");
+                    navigation.navigate("Dashboard");
                 }
                 }
             >
-                <Text>Enter Wallet ID</Text>
+                <Text>Submit Wallet ID</Text>
             </Pressable>
         </View>
     );
