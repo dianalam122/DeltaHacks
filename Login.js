@@ -18,6 +18,7 @@ export const Login = ({navigation}) => {
                     const user = userCredential.user;
                     Alert.alert("Login successful");
                     navigation.navigate("Dashboard");
+
                 })
                 .catch((error) => {
                     const errorCode = error.code;

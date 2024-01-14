@@ -9,7 +9,6 @@ export const Dashboard = ({navigation}) => {
     const [uid, setUid] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [name, setName] = React.useState("");
-    const [hasWallet, setHasWallet] = React.useState(false);
     const [walletId, setWalletId] = React.useState("");
 
     const isFocused = useIsFocused()
@@ -26,11 +25,13 @@ export const Dashboard = ({navigation}) => {
 
                     if (docSnap.exists()) {
                         Alert.alert("Document data:", docSnap.data());
-                        setHasWallet(docSnap.data().walletId !== "");
                         setWalletId(docSnap.data().walletId);
                         setEmail(docSnap.data().email);
                         setUid(uid);
                         setName(docSnap.data().name);
+                    } else {
+                        // doc.data() will be undefined in this case
+                        Alert.alert("No such document!");
                     }
                 } else {
                     navigation.navigate("Home");
@@ -42,7 +43,7 @@ export const Dashboard = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Dashboard</Text>
-            {hasWallet ?
+            {walletId === "" ?
                 <Text>{walletId}</Text>
                 :
                 <Pressable onPress={() => {
