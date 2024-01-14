@@ -12,7 +12,9 @@ export const SignUp = ({navigation, route}) => {
   const [confirmPassword, onChangeConfirmPassword] = React.useState("");
 
     const handleSubmission = async () => {
-        if (email === "") {
+        if (name === "") {
+            Alert.alert("Please enter a name");
+        } else if (email === "") {
             Alert.alert("Please enter an email");
       } else if (password === "") {
             Alert.alert("Please enter a password");
