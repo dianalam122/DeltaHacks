@@ -7,10 +7,10 @@ export const HomeScreen = ({navigation}) => {
           <Pressable onPress={() => navigation.navigate('Login')}>
               <Text>Login</Text>
           </Pressable>
-          <Pressable onPress={() => navigation.navigate("SignUp", {business: false})}>
+          <Pressable onPress={() => navigation.navigate("SignUp", {isBusiness: false})}>
               <Text>Sign Up</Text>
           </Pressable>
-          <Pressable onPress={() => navigation.navigate("SignUp", {business: true})}>
+          <Pressable onPress={() => navigation.navigate("SignUp", {isBusiness: true})}>
               <Text>Business Sign Up</Text>
           </Pressable>
       </View>

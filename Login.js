@@ -48,7 +48,7 @@ export const Login = ({navigation}) => {
           <Pressable onPress={() => navigation.navigate("Reset")}>
               <Text>Forgot Password?</Text>
           </Pressable>
-          <Pressable onPress={() => navigation.navigate("SignUp")}>
+          <Pressable onPress={() => navigation.navigate("SignUp", {isBusiness: false})}>
               <Text>Sign Up</Text>
           </Pressable>
       </View>
