@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Button, Alert, TextInput, Pressable} from 'react-native';
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./App";
 
 export const Dashboard = ({navigation, route}) => {

@@ -6,6 +6,7 @@ import {SignUp} from './SignUp';
 import {Dashboard} from './Dashboard';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from "firebase/auth";
+import {ResetPassword} from "./PassReset";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -31,6 +32,7 @@ export default function App() {
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="SignUp" component={SignUp} />
+              <Stack.Screen name="Reset" component={ResetPassword}/>
               <Stack.Screen name="Dashboard" component={Dashboard}/>
           </Stack.Navigator>
     </NavigationContainer>

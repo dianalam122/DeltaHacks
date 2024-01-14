@@ -33,17 +33,22 @@ export const Login = ({navigation}) => {
             onChangeText={onChangeEmail}
             placeholder="Email"
             textContentType={"emailAddress"}
+            inputMode={"email"}
         />
         <TextInput
             onChangeText={onChangePassword}
             placeholder="Password"
             textContentType={"password"}
+            inputMode={"password"}
         />
         <Pressable
             onPress={handleSubmission}
         >
             <Text>Login</Text>
         </Pressable>
+          <Pressable onPress={() => navigation.navigate("Reset")}>
+              <Text>Forgot Password?</Text>
+          </Pressable>
       </View>
   );
 };

@@ -4,15 +4,12 @@ import {auth} from "./App";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export const SignUp = ({navigation}) => {
-  const [name, onChangeName] = React.useState("");
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
   const [confirmPassword, onChangeConfirmPassword] = React.useState("");
 
     const handleSubmission = async () => {
-      if (name === "") {
-          Alert.alert("Please enter a name");
-      } else if (email === "") {
+        if (email === "") {
             Alert.alert("Please enter an email");
       } else if (password === "") {
             Alert.alert("Please enter a password");
@@ -43,11 +40,6 @@ export const SignUp = ({navigation}) => {
   return (
       <View style={styles.container}>
         <TextInput
-            onChangeText={onChangeName}
-            placeholder={"Name"}
-            textContentType={"name"}
-        />
-        <TextInput
             onChangeText={onChangeEmail}
             placeholder="Email"
             inputType={"email-address"}
@@ -56,11 +48,13 @@ export const SignUp = ({navigation}) => {
         <TextInput
             onChangeText={onChangePassword}
             placeholder="Password"
+            inputMode={"password"}
             textContentType={"newPassword"}
         />
         <TextInput
             onChangeText={onChangeConfirmPassword}
             placeholder="Confirm Password"
+            inputMode={"password"}
             textContentType={"newPassword"}
         />
         <Pressable
