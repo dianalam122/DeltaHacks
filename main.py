@@ -1,6 +1,7 @@
 from flask import Flask, request, Response
 import os
 import dotenv
+import requests
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -10,6 +11,7 @@ dotenv.load_dotenv()
 app = Flask(__name__)
 
 # Load environment variables
+verbwire_key = os.getenv('VERBWIRE_API_KEY')
 
 # Create a new client and connect to the server
 client = MongoClient(os.getenv('URI'), server_api=ServerApi('1'))
@@ -52,3 +54,9 @@ def login():
 
 if __name__ == "__main__":
     app.run(debug=True, port=4000)
+
+
+
+
+# verbwire api
+
