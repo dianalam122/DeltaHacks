@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Pressable, Alert, TextInput, StyleSheet, Text} from 'react-native';
+import VelvetSun from './assets/VelvetSun.jpg';
+import {StyleSheet, Text, View, Pressable, Alert, TextInput, ImageBackground} from 'react-native';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { db, auth } from "./firebaseConfig";
@@ -53,27 +54,42 @@ export const SignUp = ({navigation, route}) => {
   };
 
   return (
-      <View style={styles.container}>
-          <TextInput inputMode={"text"} placeholder="Name" onChangeText={onChangeName}
-                     textContentType={"name"}
-          />
-        <TextInput
-            onChangeText={onChangeEmail}
-            placeholder="Email"
-            inputType={"email-address"}
-            textContentType={"emailAddress"}
-        />
-        <TextInput
-            onChangeText={onChangePassword}
-            placeholder="Password"
-            textContentType={"newPassword"}
-        />
-        <TextInput
-            onChangeText={onChangeConfirmPassword}
-            placeholder="Confirm Password"
-            textContentType={"newPassword"}
-        />
-        <Pressable
+    <ImageBackground
+        source={VelvetSun}
+        style={styles.background}> 
+
+            <Text style={styles.title}>Sign Up</Text>
+            <Text style={styles.subtitle}>Create an account to start your journey</Text>
+
+            <View style={styles.inputContainer}>           
+                <TextInput style={styles.inputBox}
+                    onChangeText={onChangeName}
+                    placeholder={"Name"}
+                    placeholderTextColor="#FFFFFF"
+                    textContentType={"name"}
+                />
+                <TextInput style={styles.inputBox}
+                    onChangeText={onChangeEmail}
+                    placeholder="Email"
+                    placeholderTextColor="#FFFFFF"
+                    textContentType={"emailAddress"}
+                />
+                <TextInput style={styles.inputBox}
+                    onChangeText={onChangePassword}
+                    placeholder="Password"
+                    placeholderTextColor="#FFFFFF"
+                    textContentType={"newPassword"}
+                />
+                <TextInput style={styles.inputBox}
+                    onChangeText={onChangeConfirmPassword}
+                    placeholder="Confirm Password"
+                    placeholderTextColor="#FFFFFF"
+                    textContentType={"newPassword"}
+                />
+            </View>
+
+            <View style={styles.buttonContainer}>
+                <Pressable
             onPress={handleSubmission}
         >
             <Text>Sign Up</Text>
@@ -83,20 +99,64 @@ export const SignUp = ({navigation, route}) => {
           >
               <Text>Login</Text>
           </Pressable>
-      </View>
+            </View>
+    </ImageBackground>
   );
 };
 
+
 const styles = StyleSheet.create({
-    container: {
+
+    background: {
         flex: 1,
-        backgroundColor: '#fff',
+        resizeMode: 'cover',
         justifyContent: 'center',
-        alignContent: 'center',
+        paddingBottom: 100,
     },
+
     title: {
-        textAlign: 'center',
-        fontSize: 20,
+        textAlign: 'left',
+        marginStart: 30,
+        marginTop: 30,
+        fontSize: 60,
         fontWeight: 'bold',
+        color: '#FFFFFF',
+    },
+
+    subtitle: {
+        textAlign: 'left',
+        marginStart: 30,
+        marginTop: 5,
+        marginBottom: 30,
+        fontSize: 17,
+        color: '#FFFFFF',
+    },
+
+    inputContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        
+    },
+
+    inputBox: {
+        height: 40,
+        width: '80%',
+        borderColor: '#FFFFFF',
+        borderWidth: 1,
+        borderRadius: 20,
+        marginBottom: 20, 
+        paddingHorizontal: 20,
+        padding: 10, 
+    },
+
+    buttonContainer: {
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        marginTop: 20,
+        width: '40%',
+        height: 40,
+        alignSelf: 'center',
+        borderRadius: 20,
+        borderWidth: 0.5,
+        borderColor: '#FFFFFF',
     },
 });
