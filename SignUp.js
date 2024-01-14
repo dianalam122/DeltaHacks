@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Pressable, Alert, TextInput, StyleSheet, Text} from 'react-native';
-import axios from "axios";
+import {auth} from "./App";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 export const SignUp = ({navigation}) => {
   const [name, onChangeName] = React.useState("");
   const [email, onChangeEmail] = React.useState("");
@@ -17,32 +19,21 @@ export const SignUp = ({navigation}) => {
       } else if (confirmPassword === "") {
             Alert.alert("Please confirm your password");
       } else if (password === confirmPassword) {
-          await axios.post('/signup', {
-              headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                  name: name,
-                  email: email,
-                password: password,
-              }),
-          })
-              .then(r => {
-                  if (r.status === 200) {
-                      Alert.alert("Signed up successfully. Please Login.");
-                      navigation.navigate('Login');
-                  } else {
-                      Alert.alert("Error signing up");
-                  }
+          createUserWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                  // Signed up
+                  const user = userCredential.user;
+                  Alert.alert('Signed up successfully. Please Login.');
+                  navigation.navigate('Login');
               })
-              .catch(e => {
-                  console.log(e);
-                  if (e.status === 400) {
-                      Alert.alert("Email already in use");
-                  } else {
-                        Alert.alert("Error signing up");
-                  }
+              .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                    if (errorCode === 'auth/email-already-in-use') {
+                        Alert.alert('Email already in use');
+                    } else {
+                        Alert.alert(errorMessage);
+                    }
               });
     } else {
         Alert.alert("Passwords do not match");

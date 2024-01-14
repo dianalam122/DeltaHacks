@@ -1,38 +1,29 @@
 import React from 'react';
 import {StyleSheet, Text, View, Pressable, Alert, TextInput} from 'react-native';
-import axios from "axios";
+import {auth} from "./App";
+import {signInWithEmailAndPassword} from "firebase/auth";
 export const Login = ({navigation}) => {
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
+
   const handleSubmission = async () => {
         if (email === "") {
             Alert.alert("Please enter an email");
         } else if (password === "") {
             Alert.alert("Please enter a password");
         } else {
-            await axios.post('/login', {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email,
-                    password
-                }),
-            })
-                .then((json) => {
-                    if (json.status === 400) {
-                        Alert.alert("Username or password is incorrect");
-                    } else if (json.status === 200) {
-                        Alert.alert("Login successful");
-                        navigation.navigate('Dashboard', {email: email, name: json.data.name});
-                    } else {
-                        Alert.alert('Something went wrong');
-                    }
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    Alert.alert("Login successful");
+                    navigation.navigate("Dashboard");
                 })
                 .catch((error) => {
-                    console.error(error);
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    Alert.alert(errorMessage);
                 });
-
         }
   };
   return (
