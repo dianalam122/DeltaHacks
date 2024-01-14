@@ -6,6 +6,7 @@ export const Dashboard = ({navigation, route}) => {
     return (
         <>
             <Text>{route.params.email}</Text>
+            <Text>{route.params.name}</Text>
         </>
     );
 };

@@ -1,19 +1,42 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button, Alert, TextInput} from 'react-native';
+import {StyleSheet, Text, View, Pressable, Alert, TextInput} from 'react-native';
 export const Login = ({navigation}) => {
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
-  const handleSubmission = () => {
+  const handleSubmission = async () => {
         if (email === "") {
             Alert.alert("Please enter an email");
         } else if (password === "") {
             Alert.alert("Please enter a password");
         } else {
-            navigation.navigate('Dashboard', {email: email, password: password});
+            await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                }),
+            }).then((response) => response.json())
+                .then((json) => {
+                    if (json.status === 400) {
+                        Alert.alert("Username or password is incorrect");
+                    } else if (json.status === 200) {
+                        Alert.alert("Login successful");
+                        navigation.navigate('Dashboard', {email: email, name: json.name});
+                    } else {
+                        Alert.alert('Something went wrong');
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
         }
   };
   return (
-      <>
+      <View style={styles.container}>
         <TextInput
             className={"mx-2"}
             onChangeText={onChangeEmail}
@@ -25,10 +48,25 @@ export const Login = ({navigation}) => {
             placeholder="Password"
             textContentType={"password"}
         />
-        <Button
-            title="Login"
+        <Pressable
             onPress={handleSubmission}
-        />
-      </>
+        >
+            <Text>Login</Text>
+        </Pressable>
+      </View>
   );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+        title: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+});

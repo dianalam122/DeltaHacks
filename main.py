@@ -1,15 +1,16 @@
 from flask import Flask, request, Response
+from flask_cors import CORS
 import os
 import dotenv
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
+# Load environment variables
 dotenv.load_dotenv()
 
 app = Flask(__name__)
-
-# Load environment variables
+cors = CORS(app)
 
 # Create a new client and connect to the server
 client = MongoClient(os.getenv('URI'), server_api=ServerApi('1'))
@@ -23,10 +24,14 @@ except Exception as e:
 
 @app.route('/signup', methods=['POST'])
 def signup():
+    print(request.headers)
     # Get the data from the request
     data = request.get_json()
     # Get the users collection from the database
     users = client.users
+    if users.find_one(data):
+        # Return a 400 Bad Request
+        return Response(status=400)
     # Insert the user into the database
     users.insert_one(data)
     # Return a 200 OK
@@ -35,6 +40,7 @@ def signup():
 
 @app.route('/login', methods=['POST'])
 def login():
+    print(request.headers)
     # Get the data from the request
     data = request.get_json()
     # Get the users collection from the database

@@ -1,11 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button, Alert, TextInput} from 'react-native';
+import {View, Pressable, Alert, TextInput, StyleSheet} from 'react-native';
+import axios from "axios";
 export const SignUp = ({navigation}) => {
   const [name, onChangeName] = React.useState("");
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
   const [confirmPassword, onChangeConfirmPassword] = React.useState("");
-
 
     const handleSubmission = async () => {
       if (name === "") {
@@ -17,8 +17,7 @@ export const SignUp = ({navigation}) => {
       } else if (confirmPassword === "") {
             Alert.alert("Please confirm your password");
       } else if (password === confirmPassword) {
-          await fetch('https://127.0.0.1:4000/signup', {
-              method: 'POST',
+          await axios.post('http://localhost:4000/signup', {
               headers: {
                   Accept: 'application/json',
                   'Content-Type': 'application/json',
@@ -29,16 +28,29 @@ export const SignUp = ({navigation}) => {
                 password: password,
               }),
           })
-              .then(r => r.json())
-              .catch(error => console.log(error));
-            navigation.navigate('Login');
-        } else {
+              .then(r => {
+                  if (r.status === 200) {
+                      Alert.alert("Signed up successfully. Please Login.");
+                      navigation.navigate('Login');
+                  } else {
+                      Alert.alert("Error signing up");
+                  }
+              })
+              .catch(e => {
+                  console.log(e);
+                  if (e.status === 400) {
+                      Alert.alert("Email already in use");
+                  } else {
+                        Alert.alert("Error signing up");
+                  }
+              });
+    } else {
         Alert.alert("Passwords do not match");
     }
   };
 
   return (
-      <>
+      <View style={styles.container}>
         <TextInput
             onChangeText={onChangeName}
             placeholder={"Name"}
@@ -47,6 +59,7 @@ export const SignUp = ({navigation}) => {
         <TextInput
             onChangeText={onChangeEmail}
             placeholder="Email"
+            inputType={"email-address"}
             textContentType={"emailAddress"}
         />
         <TextInput
@@ -59,11 +72,25 @@ export const SignUp = ({navigation}) => {
             placeholder="Confirm Password"
             textContentType={"newPassword"}
         />
-
-        <Button
-            title="Sign Up"
+        <Pressable
             onPress={handleSubmission}
-        />
-      </>
+        >
+            <Text>Sign Up</Text>
+        </Pressable>
+      </View>
   );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    title: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+});
