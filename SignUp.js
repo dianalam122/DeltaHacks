@@ -1,26 +1,54 @@
 import React from 'react';
 import VelvetSun from './assets/VelvetSun.jpg';
-import {StyleSheet, Text, View, Button, Alert, TextInput, ImageBackground} from 'react-native';
+import {StyleSheet, Text, View, Pressable, Alert, TextInput, ImageBackground} from 'react-native';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
+import { db, auth } from "./firebaseConfig";
 
-
-export const SignUp = ({navigation}) => {
-  const [name, onChangeName] = React.useState("");
+export const SignUp = ({navigation, route}) => {
+    const [name, onChangeName] = React.useState("");
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
   const [confirmPassword, onChangeConfirmPassword] = React.useState("");
 
-  const handleSubmission = () => {
-      if (name === "") {
-          Alert.alert("Please enter a name");
-      } else if (email === "") {
+    const handleSubmission = async () => {
+        if (name === "") {
+            Alert.alert("Please enter a name");
+        } else if (email === "") {
             Alert.alert("Please enter an email");
       } else if (password === "") {
             Alert.alert("Please enter a password");
       } else if (confirmPassword === "") {
             Alert.alert("Please confirm your password");
       } else if (password === confirmPassword) {
-        navigation.navigate('Login');
-        } else {
+          createUserWithEmailAndPassword(auth, email, password)
+              .then(async (userCredential) => {
+                  // Signed up
+                  const user = userCredential.user;
+                  Alert.alert('Signed up successfully. Please Login.');
+                  try {
+                      await setDoc(doc(db, "User", user.uid), {
+                          name: name,
+                          email: email,
+                          isBusiness: route.params.isBusiness,
+                          walletId: ""
+                      });
+                  } catch (e) {
+                      Alert.alert("Error adding document: ", e);
+                  }
+
+                  navigation.navigate('Login');
+              })
+              .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                    if (errorCode === 'auth/email-already-in-use') {
+                        Alert.alert('Email already in use');
+                    } else {
+                        Alert.alert(errorMessage);
+                    }
+              });
+    } else {
         Alert.alert("Passwords do not match");
     }
   };
@@ -61,11 +89,16 @@ export const SignUp = ({navigation}) => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <Button style={styles.button}
-                    title="Sign Up"
-                    color='#FFFFFF'
-                    onPress={handleSubmission}
-                />
+                <Pressable
+            onPress={handleSubmission}
+        >
+            <Text>Sign Up</Text>
+        </Pressable>
+          <Pressable
+              onPress={() => navigation.navigate('Login')}
+          >
+              <Text>Login</Text>
+          </Pressable>
             </View>
     </ImageBackground>
   );

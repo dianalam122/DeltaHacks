@@ -1,6 +1,6 @@
 import React from 'react';
 import VelvetSun from './assets/VelvetSun.jpg';
-import { StyleSheet, Text, View, Button, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Pressable, ImageBackground } from 'react-native';
 
 export const HomeScreen = ({ navigation }) => {
   return (
@@ -11,18 +11,17 @@ export const HomeScreen = ({ navigation }) => {
         <Text style={styles.title}>BizFund.</Text>
         <Text style={styles.subtitle}>Restoring small businesses by increasing capital</Text>
         <View style={styles.buttonContainer}>
-          <Button
-            title="Login"
-            onPress={() => navigation.navigate('Login')}
-            color='#FFFFFF'
-          />   
+          <Pressable onPress={() => navigation.navigate('Login')} color='#fff'>
+              <Text>Login</Text>
+          </Pressable>
         </View>
         <View style={styles.buttonContainer}>
-          <Button
-            title="Sign Up"
-            color='#FFFFFF'
-            onPress={() => navigation.navigate('SignUp')}
-          />
+          <Pressable onPress={() => navigation.navigate("SignUp", {isBusiness: false})} color='#fff'>
+              <Text>Sign Up</Text>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate("SignUp", {isBusiness: true})} color='#fff'>
+              <Text>Business Sign Up</Text>
+          </Pressable>
         </View>
 
     </ImageBackground>

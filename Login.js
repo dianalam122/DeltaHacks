@@ -1,19 +1,31 @@
 import React from 'react';
 import VelvetSun from './assets/VelvetSun.jpg';
-import {StyleSheet, Text, View, Button, Alert, TextInput, ImageBackground} from 'react-native';
-
+import {StyleSheet, Text, View, Pressable, Alert, TextInput, ImageBackground} from 'react-native';
+import {auth} from "./firebaseConfig";
+import {signInWithEmailAndPassword} from "firebase/auth";
 export const Login = ({navigation}) => {
 
   
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
-  const handleSubmission = () => {
+
+  const handleSubmission = async () => {
         if (email === "") {
             Alert.alert("Please enter an email");
         } else if (password === "") {
             Alert.alert("Please enter a password");
         } else {
-            navigation.navigate('Dashboard', {email: email, password: password});
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    Alert.alert("Login successful");
+                    navigation.navigate("Dashboard");
+
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    Alert.alert(errorMessage);
+                });
         }
   };
   return (
@@ -42,11 +54,17 @@ export const Login = ({navigation}) => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <Button style={styles.button}
-                    title="Login"
-                    color='#FFFFFF'
-                    onPress={handleSubmission}
-                />
+                <Pressable color='#fff'
+            onPress={handleSubmission}
+        >
+            <Text>Login</Text>
+        </Pressable>
+          <Pressable onPress={() => navigation.navigate("Reset")} color='#fff'>
+              <Text>Forgot Password?</Text>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate("SignUp", {isBusiness: false})} color='#fff'>
+              <Text>Sign Up</Text>
+          </Pressable>
             </View>
             
     </ImageBackground>
@@ -54,7 +72,6 @@ export const Login = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-
     background: {
         flex: 1,
         resizeMode: 'cover',
@@ -108,6 +125,3 @@ const styles = StyleSheet.create({
     },
 
 });
-
-
-
