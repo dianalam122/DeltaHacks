@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Pressable, Alert, TextInput, StyleSheet} from 'react-native';
+import {View, Pressable, Alert, TextInput, StyleSheet, Text} from 'react-native';
 import axios from "axios";
 export const SignUp = ({navigation}) => {
   const [name, onChangeName] = React.useState("");
@@ -17,7 +17,7 @@ export const SignUp = ({navigation}) => {
       } else if (confirmPassword === "") {
             Alert.alert("Please confirm your password");
       } else if (password === confirmPassword) {
-          await axios.post('http://localhost:4000/signup', {
+          await axios.post('/signup', {
               headers: {
                   Accept: 'application/json',
                   'Content-Type': 'application/json',

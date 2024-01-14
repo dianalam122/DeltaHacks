@@ -1,5 +1,5 @@
 from flask import Flask, request, Response
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import os
 import dotenv
 
@@ -11,6 +11,7 @@ dotenv.load_dotenv()
 
 app = Flask(__name__)
 cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Create a new client and connect to the server
 client = MongoClient(os.getenv('URI'), server_api=ServerApi('1'))
@@ -23,6 +24,7 @@ except Exception as e:
 
 
 @app.route('/signup', methods=['POST'])
+@cross_origin()
 def signup():
     print(request.headers)
     # Get the data from the request
@@ -39,6 +41,7 @@ def signup():
 
 
 @app.route('/login', methods=['POST'])
+@cross_origin()
 def login():
     print(request.headers)
     # Get the data from the request

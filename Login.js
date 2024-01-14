@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Pressable, Alert, TextInput} from 'react-native';
+import axios from "axios";
 export const Login = ({navigation}) => {
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
@@ -9,8 +10,7 @@ export const Login = ({navigation}) => {
         } else if (password === "") {
             Alert.alert("Please enter a password");
         } else {
-            await fetch('http://localhost:3000/login', {
-                method: 'POST',
+            await axios.post('http://localhost:3000/login', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -18,13 +18,13 @@ export const Login = ({navigation}) => {
                     email,
                     password
                 }),
-            }).then((response) => response.json())
+            })
                 .then((json) => {
                     if (json.status === 400) {
                         Alert.alert("Username or password is incorrect");
                     } else if (json.status === 200) {
                         Alert.alert("Login successful");
-                        navigation.navigate('Dashboard', {email: email, name: json.name});
+                        navigation.navigate('Dashboard', {email: email, name: json.data.name});
                     } else {
                         Alert.alert('Something went wrong');
                     }
