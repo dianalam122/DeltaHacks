@@ -11,17 +11,13 @@ export const Dashboard = ({navigation, route}) => {
     const [hasWallet, setHasWallet] = React.useState(false);
     const [walletId, setWalletId] = React.useState("");
 
-    const getData = async (uid) => {
-        const docRef = doc(db, "User", uid);
-        return await getDoc(docRef);
-    };
-
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/auth.user
             const uid = user.uid;
-            const docSnap = await getData(uid);
+            const docRef = doc(db, "User", uid);
+            const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
                 Alert.alert("Document data:", docSnap.data());
@@ -30,12 +26,7 @@ export const Dashboard = ({navigation, route}) => {
                 setEmail(docSnap.data().email);
                 setUid(uid);
                 setName(docSnap.data().name);
-            } else {
-                // doc.data() will be undefined in this case
-                // Alert.alert("No such document!");
             }
-
-            setUid(uid);
         } else {
             navigation.navigate("Home");
         }

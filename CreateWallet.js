@@ -1,9 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View, Pressable, Alert, TextInput} from 'react-native';
-import {db} from "./App";
+import {auth, db} from "./App";
 import {doc, getDoc, updateDoc} from "firebase/firestore";
-export const CreateWallet = ({navigation}) => {
+import {onAuthStateChanged} from "firebase/auth";
+export const CreateWallet = ({navigation, route}) => {
     const [walletId, onChangeWalletId] = React.useState("");
+
     return (
         <View style={styles.container}>
             <TextInput
@@ -13,13 +15,13 @@ export const CreateWallet = ({navigation}) => {
             />
             <Pressable
                 onPress={async () => {
-                    const docRef = doc(db, "User", navigation.routes.uid);
+                    const docRef = doc(db, "User", route.params.uid);
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
                         console.log("Document data:", docSnap.data());
                     } else {
                         // doc.data() will be undefined in this case
-                        console.log("No such document!");
+                        Alert.alert("No such document!");
                     }
 
                     await updateDoc(docRef, {

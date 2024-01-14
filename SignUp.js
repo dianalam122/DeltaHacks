@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "./App";
 
-export const SignUp = ({navigation}) => {
+export const SignUp = ({navigation, route}) => {
     const [name, onChangeName] = React.useState("");
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
@@ -28,7 +28,8 @@ export const SignUp = ({navigation}) => {
                       const docRef = await setDoc(doc(db, "User", user.uid), {
                           name: name,
                           email: email,
-                          isBusiness: navigation.routes.isBusiness
+                          isBusiness: route.params.isBusiness,
+                          walletId: ""
                       });
                   } catch (e) {
                       Alert.alert("Error adding document: ", e);

@@ -49,7 +49,7 @@ export const Login = ({navigation}) => {
               <Text>Forgot Password?</Text>
           </Pressable>
           <Pressable onPress={() => navigation.navigate("SignUp")}>
-              <Text>SignUp</Text>
+              <Text>Sign Up</Text>
           </Pressable>
       </View>
   );
