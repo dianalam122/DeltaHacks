@@ -76,6 +76,11 @@ export const SignUp = ({navigation}) => {
         >
             <Text>Sign Up</Text>
         </Pressable>
+          <Pressable
+              onPress={() => navigation.navigate('Login')}
+          >
+              <Text>Login</Text>
+          </Pressable>
       </View>
   );
 };

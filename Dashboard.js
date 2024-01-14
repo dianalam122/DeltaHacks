@@ -24,7 +24,8 @@ export const Dashboard = ({navigation, route}) => {
             const docSnap = await getData(uid);
 
             if (docSnap.exists()) {
-                setHasWallet(docSnap.data().walletId !== null);
+                Alert.alert("Document data:", docSnap.data());
+                setHasWallet(docSnap.data().walletId !== "");
                 setWalletId(docSnap.data().walletId);
                 setEmail(docSnap.data().email);
                 setUid(uid);
