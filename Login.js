@@ -10,7 +10,7 @@ export const Login = ({navigation}) => {
         } else if (password === "") {
             Alert.alert("Please enter a password");
         } else {
-            await axios.post('http://localhost:3000/login', {
+            await axios.post('/login', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
