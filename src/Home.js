@@ -1,9 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, Pressable, View} from 'react-native';
+import {StyleSheet, Text, Pressable, View, ImageBackground} from 'react-native';
+import VelvetSun from "./assets/VelvetSun.jpg";
 
 export const HomeScreen = ({navigation}) => {
     return (
-        <>
+        <ImageBackground
+            source={VelvetSun}
+            style={styles.background}>
             <Text style={styles.title}>BizFund.</Text>
             <Text style={styles.subtitle}>Restoring small businesses by increasing capital</Text>
             <View style={{
@@ -23,15 +26,20 @@ export const HomeScreen = ({navigation}) => {
                 <Text style={styles.buttonText}>Business Sign Up</Text>
             </Pressable>
             </View>
-        </>
+        </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+    },
     title: {
         textAlign: 'left',
         marginStart: 30,
-        marginTop: 100,
+        marginTop: '35%',
         fontSize: 60,
         fontWeight: 'bold',
         color: '#FFFFFF',

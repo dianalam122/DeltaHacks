@@ -6,35 +6,23 @@ import {SignUp} from './src/SignUp';
 import {Dashboard} from './src/Dashboard';
 import {ResetPassword} from "./src/PassReset";
 import {CreateWallet} from "./src/CreateWallet";
-import {ImageBackground, StatusBar, StyleSheet} from "react-native";
-import VelvetSun from "./src/assets/VelvetSun.jpg";
+import {StatusBar, StyleSheet} from "react-native";
 
 export default function App() {
     const Stack = createNativeStackNavigator();
 
     return (
-        <ImageBackground
-            source={VelvetSun}
-            style={styles.background}>
+        <>
             <StatusBar
                 backgroundColor="transparent"
                 translucent
                 barStyle="light-content"
             />
-            <NavigationContainer theme={{
-                colors: {
-                'background': 'transparent',
-            }}}>
-
+            <NavigationContainer>
                 <Stack.Navigator screenOptions={{
                     headerShown: false,
                     gestureEnabled: false,
-                    contentStyle: {
-                        backgroundImage: VelvetSun,
-                        backgroundColor: 'transparent',
-                        flex: 1,
-                        resizeMode: 'cover',
-                    },
+                    contentStyle: styles.background,
                 }}>
                     <Stack.Screen name="Home" component={HomeScreen}/>
                     <Stack.Screen name="Login" component={Login}/>
@@ -44,13 +32,15 @@ export default function App() {
                     <Stack.Screen name="CreateWallet" component={CreateWallet}/>
                 </Stack.Navigator>
             </NavigationContainer>
-        </ImageBackground>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
     background: {
+        backgroundColor: '#fff',
         flex: 1,
         resizeMode: 'cover',
+        justifyContent: 'center',
     },
 });

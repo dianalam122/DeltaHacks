@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, View, Pressable, Alert, TextInput} from 'react-native';
+import {Text, View, Pressable, Alert, TextInput} from 'react-native';
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {setDoc, doc} from "firebase/firestore";
 import {db, auth} from "./firebaseConfig";
+import {styles} from "./PageStyles";
 
 export const SignUp = ({navigation, route}) => {
     const [name, onChangeName] = React.useState("");
@@ -53,122 +54,55 @@ export const SignUp = ({navigation, route}) => {
     };
 
     return (
-        <View style={styles.background}>
+        <>
             <Text style={styles.title}>Sign Up</Text>
             <Text style={styles.subtitle}>Create an account to start your journey</Text>
 
             <View style={styles.inputContainer}>
+                <Text style={styles.inputText}>Name</Text>
                 <TextInput style={styles.inputBox}
                            onChangeText={onChangeName}
                            placeholder={"Name"}
                            placeholderTextColor="#000"
                            textContentType={"name"}
                 />
+                <Text style={styles.inputText}>Email</Text>
                 <TextInput style={styles.inputBox}
                            onChangeText={onChangeEmail}
                            placeholder="Email"
                            placeholderTextColor="#000"
                            textContentType={"emailAddress"}
                 />
+                <Text style={styles.inputText}>Password</Text>
                 <TextInput style={styles.inputBox}
                            onChangeText={onChangePassword}
                            placeholder="Password"
                            placeholderTextColor="#000"
                            textContentType={"newPassword"}
                 />
+                <Text style={styles.inputText}>Confirm Password</Text>
                 <TextInput style={styles.inputBox}
                            onChangeText={onChangeConfirmPassword}
                            placeholder="Confirm Password"
                            placeholderTextColor="#000"
                            textContentType={"newPassword"}
                 />
+                <Pressable onPress={() => navigation.navigate("Login")}>
+                    <Text style={{
+                        color: '#EE7270',
+                        fontSize: 15,
+                        fontWeight: 'bold',
+                        marginTop: -15,
+                        marginBottom: 20
+                    }}>Already have an account? Login</Text>
+                </Pressable>
+                <Pressable
+                    style={styles.buttonContainer}
+                    onPress={handleSubmission}
+                >
+                    <Text style={styles.buttonText}>Sign Up</Text>
+                </Pressable>
             </View>
-
-            <Pressable
-                style={styles.buttonContainer}
-                onPress={handleSubmission}
-            >
-                <Text>Sign Up</Text>
-            </Pressable>
-            <Pressable onPress={() => navigation.navigate("Login")}>
-                <Text style={{
-                    color: '#EE7270',
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    marginStart: 45,
-                }}>Already have an account? Login</Text>
-            </Pressable>
-        </View>
+        </>
     );
 };
-
-
-const styles = StyleSheet.create({
-    background: {
-        backgroundColor: '#fff',
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-        paddingBottom: 100,
-    },
-
-    inputText: {
-        alignSelf: 'flex-start',
-        marginStart: 50,
-        fontWeight: 'bold',
-        fontSize: 15,
-        marginBottom: 5,
-    },
-    inputContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    title: {
-        textAlign: 'left',
-        marginStart: 30,
-        marginTop: 30,
-        fontSize: 60,
-        fontWeight: 'bold',
-        color: '#000',
-    },
-
-    subtitle: {
-        textAlign: 'left',
-        marginStart: 30,
-        marginTop: 5,
-        marginBottom: 50,
-        fontSize: 17,
-        color: '#000',
-        fontWeight: 50
-    },
-
-    inputBox: {
-        height: 40,
-        width: '80%',
-        borderColor: '#000',
-        color: '#000',
-        borderWidth: 1,
-        borderRadius: 15,
-        marginBottom: 20,
-        paddingHorizontal: 20,
-        padding: 10,
-    },
-
-    buttonContainer: {
-        backgroundColor: '#EE7270',
-        marginStart: 45,
-        width: '30%',
-        height: 40,
-        alignSelf: 'flex-start',
-        borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 10,
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 20,
-        fontWeight: 'bold',
-    }
-});
