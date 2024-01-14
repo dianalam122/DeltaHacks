@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 export const HomeScreen = ({navigation}) => {
   return (
       <View style={styles.container}>

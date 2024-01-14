@@ -26,7 +26,7 @@ export const SignUp = ({navigation, route}) => {
                   const user = userCredential.user;
                   Alert.alert('Signed up successfully. Please Login.');
                   try {
-                      const docRef = await setDoc(doc(db, "User", user.uid), {
+                      await setDoc(doc(db, "User", user.uid), {
                           name: name,
                           email: email,
                           isBusiness: route.params.isBusiness,
