@@ -1,6 +1,5 @@
 import React from 'react';
-import VelvetSun from './assets/VelvetSun.jpg';
-import {StyleSheet, Text, View, Pressable, Alert, TextInput, ImageBackground} from 'react-native';
+import {StyleSheet, Text, View, Pressable, Alert, TextInput} from 'react-native';
 import {auth} from "./firebaseConfig";
 import {signInWithEmailAndPassword} from "firebase/auth";
 
@@ -30,55 +29,72 @@ export const Login = ({navigation}) => {
         }
     };
     return (
-        <ImageBackground
-            source={VelvetSun}
-            style={styles.background}>
-
+        <View style={styles.background}>
             <Text style={styles.title}>Login</Text>
             <Text style={styles.subtitle}>Sign into your BizFund account</Text>
 
             <View style={styles.inputContainer}>
+                <Text style={styles.inputText}>Email</Text>
                 <TextInput style={styles.inputBox}
-                           className={"mx-2"}
                            onChangeText={onChangeEmail}
                            placeholder="Email"
-                           placeholderTextColor="#FFFFFF"
+                           placeholderTextColor="#000"
                            textContentType={"emailAddress"}
                 />
+                <Text style={styles.inputText}>Password</Text>
                 <TextInput style={styles.inputBox}
                            onChangeText={onChangePassword}
                            placeholder="Password"
-                           placeholderTextColor="#FFFFFF"
+                           placeholderTextColor="#000"
                            textContentType={"password"}
                 />
+                <Pressable style={{
+                    alignSelf: 'flex-start',
+                    marginStart: 45,
+                    marginTop: -10,
+                }} onPress={() => navigation.navigate("Reset")}>
+                    <Text style={{
+                        color: '#EE7270',
+                        fontSize: 15,
+                        fontWeight: 'bold',
+                    }}>Forgot Your Password?</Text>
+                </Pressable>
             </View>
 
-            <Pressable color='#fff'
-                       style={styles.buttonContainer}
-                       onPress={handleSubmission}
-            >
-                <Text>Login</Text>
-            </Pressable>
-            <Pressable style={styles.buttonContainer} onPress={() => navigation.navigate("Reset")} color='#fff'>
-                <Text>Forgot Password?</Text>
-            </Pressable>
-            <Pressable style={styles.buttonContainer} onPress={() => navigation.navigate("SignUp", {isBusiness: false})}
-                       color='#fff'>
-                <Text>Sign Up</Text>
-            </Pressable>
+            <View>
+                <Pressable color='#fff'
+                           style={styles.buttonContainer}
+                           onPress={handleSubmission}
+                >
+                    <Text style={styles.buttonText}>Login</Text>
+                </Pressable>
 
-        </ImageBackground>
+                <Pressable style={styles.buttonContainer}
+                           onPress={() => navigation.navigate("SignUp", {isBusiness: false})}
+                           color='#fff'>
+                    <Text style={styles.buttonText}>Sign Up</Text>
+                </Pressable>
+            </View>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     background: {
+        backgroundColor: '#fff',
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'center',
         paddingBottom: 100,
     },
 
+    inputText: {
+        alignSelf: 'flex-start',
+        marginStart: 50,
+        fontWeight: 'bold',
+        fontSize: 15,
+        marginBottom: 5,
+    },
     inputContainer: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -90,7 +106,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
         fontSize: 60,
         fontWeight: 'bold',
-        color: '#FFFFFF',
+        color: '#000',
     },
 
     subtitle: {
@@ -99,31 +115,35 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 50,
         fontSize: 17,
-        color: '#FFFFFF',
+        color: '#000',
+        fontWeight: 50
     },
 
     inputBox: {
         height: 40,
         width: '80%',
-        borderColor: '#FFFFFF',
+        borderColor: '#000',
         borderWidth: 1,
-        borderRadius: 20,
+        borderRadius: 15,
         marginBottom: 20,
         paddingHorizontal: 20,
         padding: 10,
     },
 
     buttonContainer: {
-        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        backgroundColor: '#EE7270',
         marginTop: 20,
-        width: '40%',
+        marginStart: 45,
+        width: '30%',
         height: 40,
-        alignSelf: 'center',
-        borderRadius: 20,
-        borderWidth: 0.5,
-        borderColor: '#FFFFFF',
+        alignSelf: 'flex-start',
+        borderRadius: 15,
         alignItems: 'center',
         justifyContent: 'center',
     },
-
+    buttonText: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold',
+    }
 });
