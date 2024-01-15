@@ -5,3 +5,4 @@ requests
 Flask-PyMongo
 python-dotenv
 flask_cors
+dotenv
