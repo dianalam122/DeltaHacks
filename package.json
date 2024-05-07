@@ -16,7 +16,7 @@
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@types/react": "~18.2.14",
-    "expo": "^49.0.0",
+    "expo": "^51.0.0",
     "expo-dev-client": "^2.4.12",
     "hermes": "^0.0.8",
     "api": "^6.1.1",
